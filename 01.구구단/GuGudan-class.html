@@ -1,0 +1,76 @@
+<html>
+<head>
+    <meta charSet="UTF-8"/>
+    <title>구구단</title>
+    <script crossOrigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossOrigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div> <!-- 결과: <div id="root"><button>Like</button></div> -->
+<script type="text/babel">
+    class GuGuDan extends React.Component {
+        state = {
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            value: '',
+            result: '',
+        };
+
+        onSubmit = (e) => { // 여기서는 정의한 함수들을 화살표 함수로 사용해야 한다, function을 사용하면 this가 달라진다.
+            e.preventDefault();
+            if (parseInt(this.state.value) === this.state.first * this.state.second) {
+                // setState안에 함수를 넣고 return에 변경할 state값을 넣는 방식으로 변경하면, 이전 state를 가져올 수 있다.
+                this.setState((prevState) => {
+                    return {
+                        result: '정답: ' + prevState.value,
+                        first: Math.ceil(Math.random() * 9) ,
+                        second: Math.ceil(Math.random() * 9),
+                        value: '',
+                    };
+                });
+                this.input.focus();
+            } else {
+                this.setState({
+                    result: '땡',
+                    value: '',
+                });
+                this.input.focus();
+            }
+        };
+
+        onChange = (e) => {
+            this.setState({value: e.target.value});
+        };
+
+        input;
+
+        onRefInput = (c) => {
+            this.input = c;
+        };
+
+        // 컨텐츠
+        render() {
+            // state가 변경 될때마다 render()가 실행 된다.
+            // 태그의 onChange={~~}같은 이벤트 핸들러의 함수를 위의 onChange 처럼 따로 빼는 이유는, onChange={~}에 로직을 작성하면
+            // state가 변경될때마다 해당로직이 생기는 것이기 떄문이다.
+            console.log('렌더링')
+            return (
+                <React.Fragment>
+                    <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+                    <form onSubmit={this.onSubmit}>
+                        <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange}/>
+                        <button>입력!</button>
+                    </form>
+                    <div>{this.state.result}</div>
+                </React.Fragment>
+            );
+        }
+    }
+
+</script>
+<script type="text/babel">
+    ReactDOM.createRoot(document.querySelector('#root')).render(<GuGuDan/>);
+</script>
+</body>
+</html>
