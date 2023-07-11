@@ -10,7 +10,7 @@ module.exports = {
 
     entry: {
         // client.jsx안에 WordRelay.jsx를 불러오기때문에 안적어줘도 된다.
-        app: ['./client.jsx']
+        app: ['./client']
     }, // 입력
 
     module: {
