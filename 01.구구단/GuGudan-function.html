@@ -32,6 +32,9 @@
                 inputEl.current.focus();
             }
         };
+
+        console.log('렌더링'); // state가 변경될 때마다 함수자체가 다시 실행 된다.
+
         return (
             <React.Fragment>
                 <div>{first} 곱하기 {second}는?</div>
