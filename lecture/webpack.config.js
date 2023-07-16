@@ -39,5 +39,6 @@ module.exports = {
         devMiddleware: { publicPath: '/dist' },
         static: { directory: path.resolve(__dirname) },
         hot: true,
+        liveReload: true
     }
 }
