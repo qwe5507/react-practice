@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-// const WordRelay = require('./WordRelay');
-import NumberBaseball from "./NumberBaseball";
-import Test from "./RenderTest";
-import NumberBaseballClass from "./NumberBaseballClass";
+import RSP from "./RSP";
 
-ReactDom.render(<NumberBaseballClass/>, document.querySelector('#root'));
+ReactDom.render(<RSP/>, document.querySelector('#root'));
