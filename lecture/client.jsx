@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import TicTacToe from "./TicTacToe";
+import MineSearch from "./MineSearch";
 
-ReactDom.render(<TicTacToe/>, document.querySelector('#root'));
+ReactDom.render(<MineSearch/>, document.querySelector('#root'));
