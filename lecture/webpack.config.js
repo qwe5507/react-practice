@@ -2,7 +2,7 @@ const path = require('path');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-    name: 'tictactoe-dev',
+    name: 'minesearch-dev',
     mode: 'development', // 실서비스 : production
     devtool: 'eval',
     resolve: {
