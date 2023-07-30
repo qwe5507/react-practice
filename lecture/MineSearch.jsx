@@ -86,6 +86,15 @@ const reducer = (state, action) => {
                 halted: false,
                 timer: 0,
             };
+        case OPEN_CELL: {
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...state.tableData[action.row]];
+            tableData[action.row][action.cell] = CODE.OPENED;
+            return {
+                ...state,
+                tableData,
+            }
+        }
         default:
             return state;
     }
