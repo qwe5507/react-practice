@@ -95,6 +95,56 @@ const reducer = (state, action) => {
                 tableData,
             }
         }
+        case CLICK_MINE: {
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...state.tableData[action.row]];
+            tableData[action.row][action.cell] = CODE.CLICKED_MINE;
+            return {
+                ...state,
+                tableData,
+                halted: true,
+            }
+        }
+        case FLAG_CELL: {
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...state.tableData[action.row]]
+            if (tableData[action.row][action.cell] == CODE.MINE) {
+                tableData[action.row][action.cell] = CODE.FLAG_MINE;
+            } else {
+                tableData[action.row][action.cell] = CODE.FLAG;
+            }
+            return {
+                ...state,
+                tableData,
+            }
+        }
+        case QUESTION_CELL: {
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...state.tableData[action.row]]
+            if (tableData[action.row][action.cell] == CODE.FLAG_MINE) {
+                tableData[action.row][action.cell] = CODE.QUESTION_MINE;
+            } else {
+                tableData[action.row][action.cell] = CODE.QUESTION;
+            }
+            return {
+                ...state,
+                tableData,
+            }
+        }
+        case NORMALIZE_CELL: {
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...state.tableData[action.row]]
+            if (tableData[action.row][action.cell] == CODE.QUESTION_MINE) {
+                tableData[action.row][action.cell] = CODE.MINE;
+            } else {
+                tableData[action.row][action.cell] = CODE.NORMAL;
+            }
+            return {
+                ...state,
+                tableData,
+            }
+        }
+
         default:
             return state;
     }
@@ -104,7 +154,7 @@ const MineSearch = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { tableData, halted, timer, result } = state;
 
-    const value = useMemo(() => ({ tableData, dispatch }), [tableData]);
+    const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
 
     return (
         <TableContext.Provider value={value}>
