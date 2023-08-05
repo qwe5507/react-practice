@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React, {memo, useContext} from 'react';
 import Td from "./Td";
 import {TableContext} from "./MineSearch";
 
-const Tr = ({rowIndex}) => {
+const Tr = memo(({rowIndex}) => {
     const {tableData} = useContext(TableContext);
 
     return (
@@ -11,6 +11,6 @@ const Tr = ({rowIndex}) => {
                 <Td rowIndex={rowIndex} cellIndex={i}></Td>)}
         </tr>
     )
-};
+});
 
 export default Tr;

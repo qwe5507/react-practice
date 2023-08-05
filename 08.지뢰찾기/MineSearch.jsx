@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useMemo } from 'react';
+import React, {useReducer, createContext, useMemo, useEffect} from 'react';
 import Table from "./Table";
 import Form from "./Form";
 
@@ -212,6 +212,12 @@ const reducer = (state, action) => {
                 tableData,
             }
         }
+        case INCREMENT_TIMER: {
+            return {
+                ...state,
+                timer: state.timer + 1,
+            }
+        }
 
         default:
             return state;
@@ -223,6 +229,19 @@ const MineSearch = () => {
     const { tableData, halted, timer, result } = state;
 
     const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
+
+    useEffect(() => {
+        let timer;
+        if (halted === false) {
+            timer = setInterval(() => {
+                dispatch({type: INCREMENT_TIMER});
+            }, 1000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [halted]);
 
     return (
         <TableContext.Provider value={value}>
